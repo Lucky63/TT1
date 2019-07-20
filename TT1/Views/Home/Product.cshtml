@@ -1,0 +1,20 @@
+﻿@model IEnumerable<TT1.Models.Product>
+@{
+	ViewBag.Title = "Список продуктов";
+}
+<a asp-action="CreateProduct">Добавить Продукт</a>
+<table class="table">
+	<tr><td>Название продукта</td><td>Описание</td><td>Цена</td><td>Операции</td></tr>
+	@foreach (var us in Model)
+	{
+		<tr>
+			<td>@us.NameProduct</td>
+			<td>@us.Description</td>
+			<td>@us.Price</td>
+			<td>
+				<a asp-action="EditProduct" asp-controller="Home" asp-route-id="@us.Id">Изменить</a> |
+				<a asp-action="DeleteProduct" asp-controller="Home" asp-route-id="@us.Id">Удалить</a>
+			</td>
+		</tr>
+	}
+</table>

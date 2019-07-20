@@ -1,0 +1,40 @@
+﻿@using TT1.Models
+@model Customer
+@{
+	ViewBag.Title = "Edit";
+}
+
+
+@using (Html.BeginForm())
+{
+
+<fieldset>
+	<legend>Клиент</legend>
+
+	@Html.HiddenFor(model => model.Id)
+
+	<div class="editor-label"><b>Имя</b></div>
+	<div class="editor-field">
+		@Html.EditorFor(model => model.Name)
+	</div>
+
+	<div class="editor-label"><b>Адрес</b></div>
+	<div class="editor-field">
+		@Html.EditorFor(model => model.Address)
+	</div>
+	<div class="editor-label"><b>Телефон</b></div>
+	<div class="editor-field">
+		@Html.EditorFor(model => model.PhoneNumber)
+	</div>
+	<div class="editor-label"><b>Продукты</b></div>
+	@foreach (var c in ViewBag.Products)
+	{
+		<input type="checkbox" name="selectedProducts" value="@c.Id" />@c.NameProduct <br />
+
+		}
+
+	<p>
+		<input type="submit" value="Сохранить" />
+	</p>
+</fieldset>
+}

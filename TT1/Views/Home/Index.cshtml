@@ -1,0 +1,29 @@
+﻿@model IEnumerable<TT1.Models.Customer>
+@{
+	ViewBag.Title = "Список всех пользователей";
+}
+
+<a asp-action="Create">Добавить пользователя</a>
+<table class="table">
+	<tr><td>Имя пользователя</td><td>Номер телефона</td><td>Адрес</td><td>Продукты клиента</td><td>Операции</td></tr>
+	@foreach (var us in Model)
+	{
+		<tr>
+			<td>@us.Name</td>
+			<td>@us.PhoneNumber</td>
+			<td>@us.Address</td>
+			<td>@us.CustomerProducts.ToArray()</td>
+
+
+
+			<td>
+				<a asp-action="Edit" asp-controller="Home" asp-route-id="@us.Id">Изменить</a> |
+				@*<a asp-action="EditProductsCustom" asp-controller="Home" asp-route-id="@us.Id">Добавить продукт пользователю</a> |*@
+				<a asp-action="Test" asp-controller="Home" asp-route-id="@us.Id">Удалить</a>
+			</td>
+		</tr>
+	}
+</table>
+
+
+<a asp-action="Product">Продукты</a>
