@@ -38,33 +38,4 @@ namespace TT1.Models
 
 
 	}
-
-	public class Customer //Student
-	{
-		public int Id { get; set; }
-		public string Name { get; set; }
-		public int PhoneNumber { get; set; }
-		public string Address { get; set; }
-		public List<CustomerProduct> CustomerProducts { get; set; }
-
-		public Customer()
-		{
-			CustomerProducts = new List<CustomerProduct>();
-		}
-	}
-	public class Product//Course
-	{
-		public int Id { get; set; }
-		public string NameProduct { get; set; }
-		public string Description { get; set; }
-		public int Price { get; set; }
-		public List<CustomerProduct> CustomerProducts { get; set; }
-
-		public Product()
-		{
-			CustomerProducts = new List<CustomerProduct>();
-		}
-	}
-
-	
 }
