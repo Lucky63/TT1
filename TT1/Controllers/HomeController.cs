@@ -22,7 +22,7 @@ namespace TT1.Controllers
 			
 			
 
-			return View(db.Customers.ToList());
+			return View(db.Customers.Include(x=>x.CustomerProducts).ThenInclude(y=>y.Product).ToList());
 		}
 
 		//Добавляем клиента
