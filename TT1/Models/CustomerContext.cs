@@ -13,6 +13,7 @@ namespace TT1.Models
 
 		public CustomerContext()
 		{
+			//Database.EnsureDeleted();
 			Database.EnsureCreated();
 		}
 		protected override void OnModelCreating(ModelBuilder modelBuilder)

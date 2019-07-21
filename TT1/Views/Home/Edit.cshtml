@@ -27,11 +27,15 @@
 		@Html.EditorFor(model => model.PhoneNumber)
 	</div>
 	<div class="editor-label"><b>Продукты</b></div>
+	@*<div class="editor-field">
+		@Html.DropDownListFor(x => x.Id, new SelectList(ViewBag.Products, "Id", "NameProduct"), "selectedProducts")
+	</div>*@
 	@foreach (var c in ViewBag.Products)
 	{
 		<input type="checkbox" name="selectedProducts" value="@c.Id" />@c.NameProduct <br />
 
-		}
+	}
+
 
 	<p>
 		<input type="submit" value="Сохранить" />
