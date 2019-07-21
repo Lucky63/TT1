@@ -15,7 +15,7 @@
 		<td>
 			<a asp-action="Edit" asp-controller="Home" asp-route-id="@us.Id">Изменить</a> |
 			@*<a asp-action="EditProductsCustom" asp-controller="Home" asp-route-id="@us.Id">Добавить продукт пользователю</a> |*@
-			<a asp-action="Test" asp-controller="Home" asp-route-id="@us.Id">Удалить</a>
+			<a asp-action="Delete" asp-controller="Customer" asp-route-id="@us.Id">Удалить</a>
 		</td>
 		@foreach (var n in us.CustomerProducts)
 		{

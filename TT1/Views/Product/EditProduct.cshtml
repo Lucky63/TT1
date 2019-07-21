@@ -1,0 +1,22 @@
+﻿@model TT1.Models.Product
+@{
+	ViewBag.Title = "Редактирование данных о продукте";
+}
+<form asp-action="editproduct" asp-controller="product" asp-route-id="@Model.Id">
+	<div class="form-group">
+		<label asp-for="NameProduct" class="control-label">Наименование продукта</label>
+		<input type="text" asp-for="NameProduct" class="form-control" />
+	</div>
+	<div class="form-group">
+		<label asp-for="Description" class="control-label">Описание</label>
+		<input type="text" asp-for="Description" class="form-control" />
+	</div>
+	<div class="form-group">
+		<label asp-for="Price" class="control-label">Цена</label>
+		<input type="number" asp-for="Price" class="form-control" />
+	</div>
+	<div class="form-group">
+		<input type="submit" value="Send" class="btn btn-default" />
+	</div>
+</form>
+
