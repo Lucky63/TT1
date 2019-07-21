@@ -28,36 +28,7 @@ namespace TT1.Controllers
 			db.Dispose();
 			base.Dispose(disposing);
 		}
-		//Отображение всех продуктов
-		public async Task<IActionResult> Product()
-		{
-			return View(await db.Products.ToListAsync());
-		}
-		//Добавление Продуктов в БД
-		public IActionResult CreateProduct()
-		{
-			return View();
-		}
-		[HttpPost]
-		public async Task<IActionResult> CreateProduct(Product product)
-		{
-			db.Products.Add(product);
-			await db.SaveChangesAsync();
-			return RedirectToAction("Product");
-		}
-
-		//public IActionResult CreateProductCustomer()
-		//{
-		//	return View();
-		//}
-		//[HttpPost]
-		//public async Task<IActionResult> CreateProductCustomer(Product product)
-		//{
-		//	db.Products.Add(product);
-		//	await db.SaveChangesAsync();
-		//	return RedirectToAction("Product");
-		//}
-
+		
 
 		//Редактирование и добавление продуктов клиенту
 		public ActionResult Edit(int? id)
