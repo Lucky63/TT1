@@ -5,23 +5,23 @@
 
 <a asp-action="Create">Добавить пользователя</a>
 <table class="table">
-	<tr><td>Имя пользователя</td><td>Номер телефона</td><td>Адрес</td><td>Продукты клиента</td><td>Операции</td></tr>
+	<tr><td>Имя пользователя</td><td>Номер телефона</td><td>Адрес</td><td>Операции</td><td>Продукты клиента</td></tr>
 	@foreach (var us in Model)
 	{
-		<tr>
-			<td>@us.Name</td>
-			<td>@us.PhoneNumber</td>
-			<td>@us.Address</td>
-			<td>@us.CustomerProducts.ToArray()</td>
-
-
-
-			<td>
-				<a asp-action="Edit" asp-controller="Home" asp-route-id="@us.Id">Изменить</a> |
-				@*<a asp-action="EditProductsCustom" asp-controller="Home" asp-route-id="@us.Id">Добавить продукт пользователю</a> |*@
-				<a asp-action="Test" asp-controller="Home" asp-route-id="@us.Id">Удалить</a>
-			</td>
-		</tr>
+	<tr>
+		<td>@us.Name</td>
+		<td>@us.PhoneNumber</td>
+		<td>@us.Address</td>
+		<td>
+			<a asp-action="Edit" asp-controller="Home" asp-route-id="@us.Id">Изменить</a> |
+			@*<a asp-action="EditProductsCustom" asp-controller="Home" asp-route-id="@us.Id">Добавить продукт пользователю</a> |*@
+			<a asp-action="Test" asp-controller="Home" asp-route-id="@us.Id">Удалить</a>
+		</td>
+		@foreach (var n in us.CustomerProducts)
+		{
+			<td>@n.Product.NameProduct</td>
+		}
+	</tr>
 	}
 </table>
 
