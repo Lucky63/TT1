@@ -19,24 +19,10 @@ namespace TT1.Controllers
 		
 		public ActionResult Index()
 		{
-			
-			
-
 			return View(db.Customers.Include(x=>x.CustomerProducts).ThenInclude(y=>y.Product).ToList());
 		}
 
-		//Добавляем клиента
-		public IActionResult Create()
-		{
-			return View();
-		}
-		[HttpPost]
-		public async Task<IActionResult> Create(Customer customer)
-		{
-			db.Customers.Add(customer);
-			await db.SaveChangesAsync();
-			return RedirectToAction("Index");
-		}
+		
 		protected override void Dispose(bool disposing)
 		{
 			db.Dispose();
