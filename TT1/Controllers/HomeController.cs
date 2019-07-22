@@ -17,8 +17,9 @@ namespace TT1.Controllers
 			db = context;
 		}
 		
-		public async Task <ActionResult> Index(SortState sortOrder = SortState.NameAsc)
+		public async Task <ActionResult> Index(SortState sortOrder = SortState.NameAsc, int page = 1)
 		{
+			//сортировка
 			IQueryable<Customer> customers = db.Customers;
 
 			ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
@@ -46,7 +47,22 @@ namespace TT1.Controllers
 					customers = customers.OrderBy(s => s.Name);
 					break;
 			}
-			return View(await customers.AsNoTracking().Include(x => x.CustomerProducts).ThenInclude(y => y.Product).ToListAsync());
+
+			//Пагинация..............................................................
+			int pageSize = 3;   // количество элементов на странице
+
+			IQueryable<Customer> source = db.Customers;
+			var count = await source.CountAsync();
+			var items = await source.Skip((page - 1) * pageSize).Take(pageSize).AsNoTracking().Include(x => x.CustomerProducts).ThenInclude(y => y.Product).ToListAsync();
+
+			PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+			IndexViewModel viewModel = new IndexViewModel
+			{
+				PageViewModel = pageViewModel,
+				Customers = items
+			};
+
+			return View(viewModel);
 		}
 
 		
