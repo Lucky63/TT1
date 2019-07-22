@@ -17,9 +17,36 @@ namespace TT1.Controllers
 			db = context;
 		}
 		
-		public ActionResult Index()
+		public async Task <ActionResult> Index(SortState sortOrder = SortState.NameAsc)
 		{
-			return View(db.Customers.Include(x=>x.CustomerProducts).ThenInclude(y=>y.Product).ToList());
+			IQueryable<Customer> customers = db.Customers;
+
+			ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
+			ViewData["PhoneNumberSort"] = sortOrder == SortState.PhoneNumberAsc ? SortState.PhoneNumberDesc : SortState.PhoneNumberAsc;
+			ViewData["AddressSort"] = sortOrder == SortState.AddressAsc ? SortState.AddressDesc : SortState.AddressAsc;
+
+			switch (sortOrder)
+			{
+				case SortState.NameDesc:
+					customers = customers.OrderByDescending(s => s.Name);
+					break;
+				case SortState.PhoneNumberAsc:
+					customers = customers.OrderBy(s => s.PhoneNumber);
+					break;
+				case SortState.PhoneNumberDesc:
+					customers = customers.OrderByDescending(s => s.PhoneNumber);
+					break;
+				case SortState.AddressAsc:
+					customers = customers.OrderBy(s => s.Address);
+					break;
+				case SortState.AddressDesc:
+					customers = customers.OrderByDescending(s => s.Address);
+					break;
+				default:
+					customers = customers.OrderBy(s => s.Name);
+					break;
+			}
+			return View(await customers.AsNoTracking().Include(x => x.CustomerProducts).ThenInclude(y => y.Product).ToListAsync());
 		}
 
 		
