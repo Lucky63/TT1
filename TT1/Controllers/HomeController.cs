@@ -51,9 +51,9 @@ namespace TT1.Controllers
 			//Пагинация..............................................................
 			int pageSize = 3;   // количество элементов на странице
 
-			IQueryable<Customer> source = db.Customers;
-			var count = await source.CountAsync();
-			var items = await source.Skip((page - 1) * pageSize).Take(pageSize).AsNoTracking().Include(x => x.CustomerProducts).ThenInclude(y => y.Product).ToListAsync();
+			//IQueryable<Customer> source = db.Customers;
+			var count = await customers.CountAsync();
+			var items = await customers.Skip((page - 1) * pageSize).Take(pageSize).AsNoTracking().Include(x => x.CustomerProducts).ThenInclude(y => y.Product).ToListAsync();
 
 			PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
 			IndexViewModel viewModel = new IndexViewModel
