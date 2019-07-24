@@ -1,0 +1,31 @@
+﻿@model TT1.Models.CustomerProduct
+@{
+	ViewBag.Title = "Удаление Продуктов";
+}
+
+
+@using (Html.BeginForm())
+{
+
+<fieldset>
+	<legend>Клиент</legend>
+
+	@Html.HiddenFor(model => model.CustomerId)
+
+	<div class="editor-label"><b>Продукт на удаление</b></div>
+
+	<select size="1" name="selectList">
+		<option disabled>Выберите Продукт на удаление</option>
+		@foreach (var c in ViewBag.Cusprod)
+		{
+
+			<option value="@c.Product.Id">@c.Product.NameProduct </option>
+		}
+	</select>
+
+
+	<p>
+		<input type="submit" value="Удалить продукт" />
+	</p>
+</fieldset>
+}

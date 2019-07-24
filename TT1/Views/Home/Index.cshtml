@@ -21,6 +21,7 @@
 			<td>@us.Address</td>
 			<td>
 				<a asp-action="Edit" asp-controller="Home" asp-route-id="@us.Id">Изменить</a> |
+				<a asp-action="DeleteCustomerProduct" asp-controller="Home" asp-route-id="@us.Id">УдалитьПродукты</a> |
 				<a asp-action="Delete" asp-controller="Customer" asp-route-id="@us.Id">Удалить</a>
 			</td>
 			@foreach (var n in us.CustomerProducts)
@@ -30,6 +31,7 @@
 		</tr>
 	}
 </table>
+<a asp-action="Product" asp-controller="Product">Продукты</a>
 @if (Model.PageViewModel.HasPreviousPage)
 {
     <a asp-action="Index"
@@ -49,4 +51,4 @@
     </a>
 }
 
-<a asp-action="Product" asp-controller="Product">Продукты</a>
+

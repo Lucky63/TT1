@@ -51,7 +51,6 @@ namespace TT1.Controllers
 			//Пагинация..............................................................
 			int pageSize = 3;   // количество элементов на странице
 
-			//IQueryable<Customer> source = db.Customers;
 			var count = await customers.CountAsync();
 			var items = await customers.Skip((page - 1) * pageSize).Take(pageSize).AsNoTracking().Include(x => x.CustomerProducts).ThenInclude(y => y.Product).ToListAsync();
 
@@ -76,7 +75,7 @@ namespace TT1.Controllers
 		//Редактирование и добавление продуктов клиенту
 		public ActionResult Edit(int? id)
 		{
-			Customer customer = db.Customers.Find(id);
+			Customer customer = db.Customers.Include(x=>x.CustomerProducts).ThenInclude(x=>x.Product).First(x=>x.Id==id);
 			if (customer == null)
 			{
 				return NotFound();
@@ -92,8 +91,8 @@ namespace TT1.Controllers
 			newStudent.Name = customer.Name;
 			newStudent.Address = customer.Address;
 			newStudent.PhoneNumber = customer.PhoneNumber;
-
-			newStudent.CustomerProducts.Clear();
+			
+			
 			
 			if (selectedProducts != null)
 			{
@@ -108,7 +107,28 @@ namespace TT1.Controllers
 			db.SaveChanges();
 			return RedirectToAction("Index");
 		}
+		//Тестовая версия удаления продукта у клиента
+		public ActionResult DeleteCustomerProduct(int id)
+		{
+			Customer customer = db.Customers.Include(x=>x.CustomerProducts).ThenInclude(x=>x.Product).First(x => x.Id == id);
+			ViewBag.Cusprod = customer.CustomerProducts.ToList();
+			CustomerProduct customerProduct = new CustomerProduct { CustomerId = id};
+			return View(customerProduct);
+		}
+		[HttpPost]
+		public ActionResult DeleteCustomerProduct(CustomerProduct customerProduct, int selectList)
+		{
+			Customer customer = db.Customers.Include(s => s.CustomerProducts).FirstOrDefault(s => s.Id == customerProduct.CustomerId);
+			Product product = db.Products.FirstOrDefault(c => c.Id == selectList);
+			if (customer != null && product != null)
+			{
+				var customerproductdel = customer.CustomerProducts.FirstOrDefault(sc => sc.ProductId == product.Id);
+				customer.CustomerProducts.Remove(customerproductdel);
+				db.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			return NotFound();
+		}
 
-		
 	}
 }
